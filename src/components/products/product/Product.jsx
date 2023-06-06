@@ -2,7 +2,24 @@ import React from 'react'
 import { Card, CardMedia, CardContent, CardActions, Typography, IconButton } from '@mui/material'
 import { AddShoppingCartRounded } from '@mui/icons-material'
 
-import { styles } from './styles'
+const styles = {
+    root: {
+        // maxWidth: 345, original width style
+        maxWidth: '100%',
+    },
+    media: {
+        height: 0,
+        paddingTop: '56.25%', // 16:9
+    },
+    cardActions: {
+        display: 'flex',
+        justifyContent: 'flex-end',
+    },
+    cardContent: {
+        display: 'flex',
+        justifyContent: 'space-between',
+    },
+};
 
 const Product = ({ product }) => {
     return (
@@ -17,9 +34,9 @@ const Product = ({ product }) => {
                         {product.price}
                     </Typography>
                 </div>
-                <Typography variant='h5' color='textSecondary'>{ product.description }</Typography>
+                <Typography variant='body2' color='textSecondary'>{product.description}</Typography>
             </CardContent>
-            <CardActions disableSpacing className={styles.cardActions}>
+            <CardActions disableSpacing sx={styles.cardActions}>
                 <IconButton aria-label='Add to cart'>
                     <AddShoppingCartRounded />
                 </IconButton>
