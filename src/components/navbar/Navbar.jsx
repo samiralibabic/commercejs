@@ -5,7 +5,7 @@ import { useTheme } from '@mui/material/styles';
 import logo from '../../assets/logo.png';
 import { ShoppingCart } from '@mui/icons-material';
 
-const Navbar = () => {
+const Navbar = ({ totalItemsInCart }) => {
     const theme = useTheme();
     const drawerWidth = 0;
     const styles = {
@@ -84,7 +84,7 @@ const Navbar = () => {
                     <Box sx={styles.grow} />
                     <Box >
                         <IconButton aria-label='Show cart items' color='inherit'>
-                            <Badge badgeContent={2} color='secondary'>
+                            <Badge badgeContent={totalItemsInCart} color='secondary'>
                                 <ShoppingCart />
                             </Badge>
                         </IconButton>
