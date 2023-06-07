@@ -1,8 +1,9 @@
 import React from 'react'
 import { Container, Typography, Button, Grid, Box } from '@mui/material'
 import { useTheme } from '@mui/material/styles';
+import CartItem from './cartItem/CartItem';
 
-const Cart = ({ cart }) => {
+const Cart = ({ cart, handleUpdateCartQty, handleRemoveFromCart, handleEmptyCart }) => {
     const theme = useTheme();
 
     const styles = {
@@ -43,7 +44,9 @@ const Cart = ({ cart }) => {
                 {
                     cart.line_items.map((item) => (
                         <Grid item xs={12} sm={4} key={item.id}>
-                            <Box>{item.name}</Box>
+                            <CartItem item={item} 
+                            handleUpdateCartQty={handleUpdateCartQty}
+                            handleRemoveFromCart={handleRemoveFromCart} />
                         </Grid>
                     ))
                 }
@@ -51,22 +54,20 @@ const Cart = ({ cart }) => {
             <Box sx={styles.cardDetails}>
                 <Typography variant='h4'>Subtotal: { cart.subtotal.formatted_with_symbol }</Typography>
                 <Box>
-                    <Button sx={styles.emptyButton} size='large' type='button' variant='contained' color='secondary'>Empty cart</Button>
+                    <Button sx={styles.emptyButton} size='large' type='button' variant='contained' color='secondary' onClick={handleEmptyCart}>Empty cart</Button>
                     <Button sx={styles.checkoutButton} size='large' type='button' variant='contained' color='primary'>Checkout</Button>
                 </Box>
             </Box>
         </>
     );
 
-    if(!cart.line_items) return 'Loading...';
-
     return (
         <Container>
             <Box sx={styles.toolbar} />
-            <Typography sx={styles.title} variant='h3'>
+            <Typography sx={styles.title} variant='h3' gutterBottom>
                 Your shopping cart
             </Typography>
-            {!cart.line_items.length ? <EmptyCart /> : <FilledCart />}
+            {!cart?.line_items?.length ? <EmptyCart /> : <FilledCart />}
         </Container>
     )
 }

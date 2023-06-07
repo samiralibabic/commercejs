@@ -4,6 +4,7 @@ import Image from 'mui-image';
 import { useTheme } from '@mui/material/styles';
 import logo from '../../assets/logo.png';
 import { ShoppingCart } from '@mui/icons-material';
+import { Link } from 'react-router-dom';
 
 const Navbar = ({ totalItemsInCart }) => {
     const theme = useTheme();
@@ -78,11 +79,11 @@ const Navbar = ({ totalItemsInCart }) => {
             <AppBar position='fixed' sx={styles.appBar} color='inherit'>
                 <Toolbar>
                     <Image src={logo} alt='webshop1' width={30} height={30} sx={styles.image} />
-                    <Typography sx={styles.title} ml={1}>
-                        Webshop with Commerce.js
+                    <Typography component={Link} to='/' sx={styles.title} ml={1}>
+                        Commerce.js
                     </Typography>
                     <Box sx={styles.grow} />
-                    <Box >
+                    <Box component={Link} to='/cart'>
                         <IconButton aria-label='Show cart items' color='inherit'>
                             <Badge badgeContent={totalItemsInCart} color='secondary'>
                                 <ShoppingCart />
