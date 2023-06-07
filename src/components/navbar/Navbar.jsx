@@ -1,5 +1,6 @@
 import React from 'react'
 import { Box, AppBar, Toolbar, IconButton, Badge, MenuItem, Menu, Typography, alpha } from '@mui/material'
+import Image from 'mui-image';
 import { useTheme } from '@mui/material/styles';
 import logo from '../../assets/logo.png';
 import { ShoppingCart } from '@mui/icons-material';
@@ -76,12 +77,12 @@ const Navbar = () => {
         <>
             <AppBar position='fixed' sx={styles.appBar} color='inherit'>
                 <Toolbar>
-                    <Box component="img" src={logo} alt='webshop1' height='25px' sx={styles.image} />
+                    <Image src={logo} alt='webshop1' width={30} height={30} sx={styles.image} />
                     <Typography sx={styles.title} ml={1}>
                         Webshop with Commerce.js
                     </Typography>
                     <Box sx={styles.grow} />
-                    <Box sx={styles.menuButton} >
+                    <Box >
                         <IconButton aria-label='Show cart items' color='inherit'>
                             <Badge badgeContent={2} color='secondary'>
                                 <ShoppingCart />

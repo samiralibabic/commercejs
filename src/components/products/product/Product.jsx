@@ -1,15 +1,13 @@
 import React from 'react'
-import { Card, CardMedia, CardContent, CardActions, Typography, IconButton } from '@mui/material'
+import { Box, Card, CardMedia, CardContent, CardActions, Typography, IconButton } from '@mui/material'
+import Image from 'mui-image'
+
 import { AddShoppingCartRounded } from '@mui/icons-material'
 
 const styles = {
     root: {
         // maxWidth: 345, original width style
         maxWidth: '100%',
-    },
-    media: {
-        height: 0,
-        paddingTop: '56.25%', // 16:9
     },
     cardActions: {
         display: 'flex',
@@ -24,17 +22,17 @@ const styles = {
 const Product = ({ product }) => {
     return (
         <Card sx={styles.root}>
-            <CardMedia sx={styles.media} image={product.image} title={product.name} />
+            <Image src={product.image.url} title={product.name} />
             <CardContent>
-                <div sx={styles.media}>
-                    <Typography variant='h5' gutterBottom>
+                <Box sx={styles.cardContent}>
+                    <Typography variant='h5' gutterBottom component='h2'>
                         {product.name}
                     </Typography>
-                    <Typography variant='h5'>
-                        {product.price}
+                    <Typography variant='h5' gutterBottom component='h2'>
+                        {product.price.formatted_with_symbol}
                     </Typography>
-                </div>
-                <Typography variant='body2' color='textSecondary'>{product.description}</Typography>
+                </Box>
+                <Typography variant='body2' color='textSecondary' component='p' dangerouslySetInnerHTML={{ __html: product.description }} />
             </CardContent>
             <CardActions disableSpacing sx={styles.cardActions}>
                 <IconButton aria-label='Add to cart'>

@@ -4,19 +4,7 @@ import Product from './product/Product'
 
 import { useTheme } from '@mui/material/styles'
 
-import shoe from '../../assets/products/shoe.png'
-import mac from '../../assets/products/macbook.png'
-
-const products = [
-    {
-        id: 1, name: "Shoes", description: "running shoes", price: "$5", image: shoe
-    },
-    {
-        id: 2, name: "Mac", description: "Appple Mac Book Pro", price: "$10", image: mac
-    }
-]
-
-const Products = () => {
+const Products = ({ products }) => {
     const theme = useTheme();
 
     const styles = {
