@@ -1,6 +1,5 @@
 import React from 'react'
 import { Typography, Button, Card, CardActions, CardContent, CardMedia, Box } from '@mui/material'
-import Image from 'mui-image';
 
 const CartItem = ({ item, handleUpdateCartQty, handleRemoveFromCart }) => {
     const styles = {
