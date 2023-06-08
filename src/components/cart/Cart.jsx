@@ -2,6 +2,7 @@ import React from 'react'
 import { Container, Typography, Button, Grid, Box } from '@mui/material'
 import { useTheme } from '@mui/material/styles';
 import CartItem from './cartItem/CartItem';
+import { Link } from 'react-router-dom';
 
 const Cart = ({ cart, handleUpdateCartQty, handleRemoveFromCart, handleEmptyCart }) => {
     const theme = useTheme();
@@ -55,7 +56,7 @@ const Cart = ({ cart, handleUpdateCartQty, handleRemoveFromCart, handleEmptyCart
                 <Typography variant='h4'>Subtotal: { cart.subtotal.formatted_with_symbol }</Typography>
                 <Box>
                     <Button sx={styles.emptyButton} size='large' type='button' variant='contained' color='secondary' onClick={handleEmptyCart}>Empty cart</Button>
-                    <Button sx={styles.checkoutButton} size='large' type='button' variant='contained' color='primary'>Checkout</Button>
+                    <Button component={Link} to='/checkout' sx={styles.checkoutButton} size='large' type='button' variant='contained' color='primary'>Checkout</Button>
                 </Box>
             </Box>
         </>

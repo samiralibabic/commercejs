@@ -24,7 +24,6 @@ const CartItem = ({ item, handleUpdateCartQty, handleRemoveFromCart }) => {
             <CardMedia sx={styles.cardMedia} image={item.image.url} />
             <CardContent sx={styles.cardContent}>
                 <Typography variant='h4'>{item.name}</Typography>
-                {console.log(item)}
                 <Typography variant='h5'>{item.line_total.formatted_with_symbol}</Typography>
             </CardContent>
             <CardActions sx={styles.cartActions}>
