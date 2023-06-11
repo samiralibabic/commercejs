@@ -127,7 +127,9 @@ const AddressForm = ({ checkoutToken, next }) => {
                     </Grid>
                     <Grid item xs={12} sm={6}>
                         <InputLabel>Shipping Country</InputLabel>
-                        <Select fullWidth value={shippingCountry} {...register("Shipping country", { required: true })} onChange={(e) => setShippingCountry(e.target.value)}>
+                        <Select fullWidth value={shippingCountry} 
+                        {...register("Shipping country", { required: true })} 
+                        onChange={(e) => setShippingCountry(e.target.value)}>
                             {Object.entries(shippingCountries).map(([code, name]) => ({ id: code, label: name })).map((item) => (
                                 <MenuItem key={item.id} value={item.id}>
                                     {item.label}
@@ -137,7 +139,9 @@ const AddressForm = ({ checkoutToken, next }) => {
                     </Grid>
                     <Grid item xs={12} sm={6}>
                         <InputLabel>Shipping Subdivision</InputLabel>
-                        <Select fullWidth value={shippingSubdivision} {...register("Shipping subdivision", { required: true })} onChange={(e) => setShippingSubdivision(e.target.value)}>
+                        <Select fullWidth value={shippingSubdivision}
+                            {...register("Shipping subdivision", { required: true })}
+                            onChange={(e) => setShippingSubdivision(e.target.value)}>
                             {Object.entries(shippingSubdivisions).map(([code, name]) => ({ id: code, label: name })).map((item) => (
                                 <MenuItem key={item.id} value={item.id}>
                                     {item.label}
@@ -148,7 +152,9 @@ const AddressForm = ({ checkoutToken, next }) => {
 
                     <Grid item xs={12} sm={6}>
                         <InputLabel>Shipping Option</InputLabel>
-                        <Select fullWidth value={shippingOption} {...register("Shipping option", { required: true })} onChange={(e) => setShippingOption(e.target.value)}>
+                        <Select fullWidth value={shippingOption} 
+                        {...register("Shipping option", { required: true })} 
+                        onChange={(e) => setShippingOption(e.target.value)}>
                             {shippingOptions.map((option) => ({ id: option.id, label: `${option.description} - (${option.price.formatted_with_symbol})` })).map((item) => (
                                 <MenuItem key={item.id} value={item.id}>
                                     {item.label}
