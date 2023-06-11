@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 
 import { commerce } from '../../lib/commerce.js';
 
-const AddressForm = ({ checkoutToken }) => {
+const AddressForm = ({ checkoutToken, next }) => {
     const [shippingCountries, setShippingCountries] = useState([]);
     const [shippingCountry, setShippingCountry] = useState('');
     const [shippingSubdivisions, setShippingSubdivisions] = useState([]);
@@ -14,7 +14,6 @@ const AddressForm = ({ checkoutToken }) => {
     const [shippingOption, setShippingOption] = useState('');
 
     const { register, handleSubmit, formState: { errors } } = useForm();
-    const onSubmit = data => console.log(data);
 
     const fetchShippingCountries = async (token) => {
         // Commerce.js does not currently support this endpoint. Follow progress at https://github.com/chec/commerce.js
@@ -106,7 +105,7 @@ const AddressForm = ({ checkoutToken }) => {
     return (
         <>
             <Typography variant='h6' gutterBottom>Shipping Address</Typography>
-            <Box component='form' onSubmit={handleSubmit(onSubmit)}>
+            <Box component='form' onSubmit={handleSubmit((data) => next({ ...data }))}>
                 <Grid container spacing={3} mb={3}>
                     <Grid item xs={12} sm={6}>
                         <TextField fullWidth placeholder="First name" {...register("First name", { required: true })} />
