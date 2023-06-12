@@ -4,9 +4,8 @@ import { Typography, List, ListItem, ListItemText } from '@mui/material'
 const Review = ({ checkoutToken }) => {
     return (
         <>
-            <Typography variant='h6' gutterBottom>a</Typography>
+            <Typography variant='h6' gutterBottom>Order summary</Typography>
             <List disablePadding>
-                {console.log({checkoutToken})}
                 {checkoutToken.line_items.map((product) => (
                     <ListItem style={{padding: '10px 0'}} key={product.name}>
                         <ListItemText primary={product.name} secondary={`Quantity: ${product.quantity}`} />

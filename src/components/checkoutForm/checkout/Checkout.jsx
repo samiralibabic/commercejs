@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
-import { CssBaseline, Box, Paper, Stepper, Step, StepLabel, Typography, CircularProgress, Divider, Button } from '@mui/material';
+import { Box, Paper, Stepper, Step, StepLabel, Typography, CircularProgress, Divider, Button, CssBaseline } from '@mui/material';
 import { useTheme } from '@mui/material/styles'
-import { AddressForm, PaymentForm, Confirmation } from '../../'
+import { AddressForm, PaymentForm } from '../../'
 import { commerce } from '../../../lib/commerce'
 
 const steps = ['Shipping address', 'Payment details'];
 
-const Checkout = ({ cart }) => {
+const Checkout = ({ cart, order, onCaptureCheckout, error }) => {
     const [activeStep, setActiveStep] = useState(0);
     const [checkoutToken, setCheckoutToken] = useState(null);
     const [shippingData, setShippingData] = useState({});
 
     const theme = useTheme();
-    const history = useNavigate();
+    const navigate = useNavigate();
 
     const styles = {
         appBar: {
@@ -26,7 +26,6 @@ const Checkout = ({ cart }) => {
             marginLeft: theme.spacing(2),
             marginRight: theme.spacing(2),
             [theme.breakpoints.up('xs')]: {
-                width: 600,
                 marginLeft: 'auto',
                 marginRight: 'auto',
             },
@@ -66,10 +65,6 @@ const Checkout = ({ cart }) => {
         },
     }
 
-    const Form = () => activeStep === 0
-        ? <AddressForm checkoutToken={checkoutToken} next={next} />
-        : <PaymentForm shippingData={shippingData} checkoutToken={checkoutToken} />
-
     useEffect(() => {
         if (cart.id) {
             const generateToken = async () => {
@@ -77,13 +72,13 @@ const Checkout = ({ cart }) => {
                     const token = await commerce.checkout.generateToken(cart.id, { type: 'cart' });
                     setCheckoutToken(token);
                 } catch {
-                    if (activeStep !== steps.length) history.push('/');
+                    if (activeStep !== steps.length) navigate('/');
                 }
             };
 
             generateToken();
         }
-    }, [cart, activeStep, history]);
+    }, [cart, activeStep, navigate]);
 
     const nextStep = () => setActiveStep((prevActiveStep) => prevActiveStep + 1)
     const backStep = () => setActiveStep((prevActiveStep) => prevActiveStep - 1)
@@ -93,8 +88,39 @@ const Checkout = ({ cart }) => {
         nextStep();
     }
 
+    let Confirmation = () => (order.customer ? (
+        <>
+            <Box>
+                <Typography variant='h5'>Thank you for your purchase, {order.customer.firstname} {order.customer.lastname}</Typography>
+                <Divider sx={styles.divider} />
+                <Typography variant='subtitle2'>Order ref: {order.customer_reference}</Typography>
+            </Box>
+            <Button LinkComponent={Link} to='/' variant='outlined' type='button'>Back to Home</Button>
+        </>
+    ) : (
+        <Box sx={styles.spinner}>
+            <CircularProgress />
+        </Box>
+    ));
+
+    if (error) {
+        Confirmation = () => (
+            <>
+                <Typography variant="h5">Error: {error}</Typography>
+                <br />
+                <Button component={Link} variant="outlined" type="button" to="/">Back to home</Button>
+            </>
+        );
+    }
+
+    const Form = () => activeStep === 0
+        ? <AddressForm checkoutToken={checkoutToken} next={next} />
+        : <PaymentForm checkoutToken={checkoutToken} shippingData={shippingData} backStep={backStep}
+            onCaptureCheckout={onCaptureCheckout} nextStep={nextStep} />
+
     return (
         <>
+            <CssBaseline />
             <Box sx={styles.toolbar} />
             <Box component='main' sx={styles.layout}>
                 <Paper sx={styles.paper}>

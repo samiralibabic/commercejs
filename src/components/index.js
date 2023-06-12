@@ -4,4 +4,3 @@ export { default as Cart } from './cart/Cart';
 export { default as Checkout } from './checkoutForm/checkout/Checkout';
 export { default as AddressForm } from './checkoutForm/AddressForm'
 export { default as PaymentForm } from './checkoutForm/PaymentForm'
-export { default as Confirmation } from './checkoutForm/Confirmation'
